@@ -82,8 +82,9 @@ THE SOFTWARE.
                     li.append(e_user);
 
                     //add commit message
+                    var span = $("<span class=github-commit-date>");
                     li.append(message(cur.commit.message, cur.sha));
-                    li.append(when(cur.commit.committer.date));
+                    li.append(span.text(when(cur.commit.committer.date)));
 
                     list.append(li);
                 }
