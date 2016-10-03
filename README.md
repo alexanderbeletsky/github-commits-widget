@@ -25,10 +25,59 @@ Reference 'github.commits.widget.js' and containter div and place such script.
 </script>
 ```
 
-where, user is your github account, repo is name of repository and branch is the name of branch you want to track.
+This sample shows a short *last modification* message related to the site (e.g., `Last modification just now`):
+
+```yaml
+...
+baseurl:             "/my-repo"
+branch:              "gh-pages"
+...
+author:
+  name:              itsme
+...
+```
+
+```html
+Last modification<span id="last-site-mod"> unknown</span>
+```
+
+```html
+$(function() {
+	$('#last-site-mod').githubInfoWidget(
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', nouser: true, nomsg: true, abstime: false, simple: 2, last: 1, limitMessageTo: 500 });
+});
+</script>
+```
+
+This sample shows a short *last modification* message related to a specific page (e.g., `Last modification: 2016-10-03, about 2 hours ago`):
+
+```html
+Last modification: <span id="last-page-mod">unknown</span>
+```
+
+```html
+<script>
+$(function() {
+	$('#last-page-mod').githubInfoWidget(
+		{ user: '{{ site.author.name }}', repo: '{{ site.baseurl }}', branch: '{{ site.branch }}', path: '{{ page.path }}', nouser: true, nomsg: true, abstime: true, simple: 1, last: 1, limitMessageTo: 500 });
+});
+</script>
+```
 
 Configuration
 -------------
+
+* user is your github account
+* repo is name of repository; can be with or without initial `/`
+* branch is the name of branch you want to track
+* nouser (true/false/unset): if set to true, does not show user
+* noavatar (true/false/unset): if set to true, does not show avatar
+* nomsg (true/false/unset): if set to true, does not show message
+* abstime (true/false/unset): if set to true, shows absolute time
+* noreltime (true/false/unset): if set to true, does not show relative time
+* simple (unset, 1, 2): if set to 1, shows a simple message without list; if set to 2, also show the number of commits in the tooltip
+
+
 You might limit number commits shown in widget by providing with 'last' parameter:
 
 ```html
